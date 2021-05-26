@@ -1,0 +1,113 @@
+{
+  "manifest_version": 1,
+  "type": "WebApp",
+  "meta": {
+    "name": "Non-transparent Background Bug",
+    "version": "0.0.1",
+    "minimum-overwolf-version": "0.135.0",
+    "author": "Frederick",
+    "icon": "logo192.png",
+    "description": "Non-transparent background bug minimal demo."
+  },
+  "permissions": [
+    "Clipboard",
+    "Extensions",
+    "GameInfo",
+    "FileSystem",
+    "Hotkeys",
+    "Profile",
+    "Streaming",
+    "Tray",
+    "VideoCaptureSettings"
+  ],
+  "data": {
+    "game_targeting": {
+      "type": "all"
+    },
+    "launch_events": [
+      {
+        "event": "GameLaunch",
+        "event_data": {
+          "game_ids": [
+            3683,
+            7764,
+            5426,
+            7314,
+            9898,
+            10798,
+            10826,
+            10844,
+            10906,
+            21216,
+            21566,
+            21626,
+            21640
+          ]
+        },
+        "start_minimized": true
+      }
+    ],
+    "game_events": [
+      3683,
+      7764,
+      5426,
+      7314,
+      9898,
+      10798,
+      10826,
+      10844,
+      10906,
+      21216,
+      21566,
+      21626,
+      21640
+    ],
+    "start_window": "background",
+    "windows": {
+      "background": {
+        "file": "index.html",
+        "background_optimization": false,
+        "is_background_page": true
+      },
+      "in_game": {
+        "file": "index.html",
+        "in_game_only": true,
+        "focus_game_takeover": "ReleaseOnHidden",
+        "focus_game_takeover_release_hotkey": "toggle_ingame",
+        "transparent": true,
+        "resizable": true,
+        "size": {
+          "width": 500,
+          "height": 340
+        },
+        "min_size": {
+          "width": 500,
+          "height": 340
+        },
+        "max_size": {
+          "width": 500,
+          "height": 360
+        },
+        "start_position": {
+          "top": 90000,
+          "left": 30
+        },
+        "allow_local_file_access": true,
+        "restrict_to_game_bounds": true
+      }
+    },
+    "hotkeys": {
+      "toggle_ingame": {
+        "title": "Show/Hide Overlay (in-game)",
+        "action-type": "custom",
+        "default": "Ctrl+X"
+      }
+    },
+    "force_browser": "user",
+    "developer": {
+      "enable_auto_refresh": true,
+      "reload_delay": 1000,
+      "filter": "*.*"
+    }
+  }
+}
