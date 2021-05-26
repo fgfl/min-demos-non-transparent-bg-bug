@@ -1,5 +1,3 @@
-import './index.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -10,6 +8,7 @@ import App from './App';
 const TransparentBg = withStyles((theme: Theme) => createStyles({
   body: {
     backgroundColor: 'transparent',
+    margin: 0,
   },
 }))(() => null);
 

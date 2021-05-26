@@ -1,53 +1,53 @@
-import './App.css';
-
-import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import BackgroundWindow from './BackgroundWindow';
+import InGameWindow from './InGameWindow';
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  app: {
-    visibility: 'hidden',
-    width: '100vw',
-    height:' 100vh',
+  root: {},
+  loader: {
+    background: theme.palette.background.default,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
-    '&$show': {
-      visibility: 'visible',
-    }
-  },
-  box: {
-    width: '100px',
-    height: '100px',
-    backgroundColor: 'aqua',
-  },
-  show: {},
+    width: '100vw',
+    height: '100vh',
+    overflow: 'hidden',
+  }
 }))
 
-function App() {
+const Loader = () => {
   const classes = useStyles();
-  const [show, setShow] = useState(false);
+  return (
+    <div className={classes.loader}>
+      <h1>Loading</h1>
+    </div>
+  );
+}
 
-  const toggleVisibility = useCallback(() => {
-    setShow((prev) => !prev);
-  }, []);
+const CurrentWindow = ({ windowName }: { windowName: string }) => {
+  switch (windowName) {
+    case 'background':
+      return <BackgroundWindow />
+    case 'in_game':
+      return <InGameWindow />
+    default:
+      return <Loader />;
+  }
+};
+
+function App() {
+  const [currentWindowName, setCurrentWindowName] = useState('');
 
   useEffect(() => {
-    const hotkeyListener = (event: overwolf.settings.hotkeys.OnPressedEvent) => {
-      if (event.name === 'toggle_ingame') {
-        toggleVisibility();
-      }
-    };
-
-    overwolf.settings.hotkeys.onPressed.addListener(hotkeyListener);
-    return () => overwolf.settings.hotkeys.onPressed.removeListener(hotkeyListener);
-  }, [toggleVisibility]);
+    overwolf.windows.getCurrentWindow(result => {
+      setCurrentWindowName(result.window.name);
+    })
+  }, []);
 
   return (
-    <div id='App' className={classNames(classes.app, { [classes.show]: show })}>
-      <div className={classes.box}></div>
-    </div>
+    <CurrentWindow windowName={currentWindowName} />
   );
 }
 
