@@ -8,7 +8,7 @@ import InGameWindow from './InGameWindow';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {},
   loader: {
-    background: theme.palette.background.default,
+    background: 'red',
     display: 'flex',
     flexDirection: 'column',
     width: '100vw',
@@ -42,7 +42,9 @@ function App() {
 
   useEffect(() => {
     overwolf.windows.getCurrentWindow(result => {
-      setCurrentWindowName(result.window.name);
+      window.setTimeout(() =>{
+        setCurrentWindowName(result.window.name);
+      }, 5000);
     })
   }, []);
 

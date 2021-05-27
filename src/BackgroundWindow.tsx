@@ -1,7 +1,4 @@
-import classNames from 'classnames';
 import React, { useEffect } from 'react';
-
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 interface BackgroundWindowOwnProps {
   className?: string;
@@ -32,16 +29,16 @@ function BackgroundWindow(props: BackgroundWindowProps) {
   }, []);
 
   useEffect(() => {
-    const gameLaunchListener = (event: overwolf.games.RunningGameInfo) => {
-      if (event.isRunning) {
+    const gameLaunchListener = (event: overwolf.games.GameInfoUpdatedEvent) => {
+      if (event.gameInfo?.isRunning) {
         handleGameRunning();
       } else {
         handleGameNotRunning();
       }
     };
 
-    overwolf.games.onGameLaunched.addListener(gameLaunchListener);
-    return () => overwolf.games.onGameLaunched.removeListener(gameLaunchListener);
+    overwolf.games.onGameInfoUpdated.addListener(gameLaunchListener);
+    return () => overwolf.games.onGameInfoUpdated.removeListener(gameLaunchListener);
   }, []);
 
   return null;

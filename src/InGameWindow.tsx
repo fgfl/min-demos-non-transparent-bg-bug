@@ -51,7 +51,7 @@ function InGameWindow(props: InGameWindowProps) {
   }, [toggleVisibility]);
 
   return (
-    <div id='App' className={classNames(classes.root, { [classes.show]: show })}>
+    <div id='InGameWindow' className={classNames(classes.root, { [classes.show]: show })}>
       <div className={classes.box}></div>
     </div>
   );

@@ -1,21 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStyles, Theme, withStyles } from '@material-ui/core';
+import { createMuiTheme, createStyles, CssBaseline, Theme, ThemeProvider, withStyles } from '@material-ui/core';
 
 import App from './App';
 
 const TransparentBg = withStyles((theme: Theme) => createStyles({
   body: {
     backgroundColor: 'transparent',
-    margin: 0,
   },
 }))(() => null);
 
+const theme = createMuiTheme();
+
 ReactDOM.render(
   <React.StrictMode>
-    <TransparentBg />
-    <App />
+    <ThemeProvider theme={theme} >
+      <CssBaseline />
+      <TransparentBg />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
