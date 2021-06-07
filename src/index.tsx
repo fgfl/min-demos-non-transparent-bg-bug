@@ -27,7 +27,7 @@ const theme = createMuiTheme({
 
 // Can override the background colour using the above theme or use the default theme below
 
-// const = createMuiTheme();
+// const theme = createMuiTheme();
 
 // and have the `TransparentBg` component override the background color
 
