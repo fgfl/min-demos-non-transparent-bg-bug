@@ -33,7 +33,7 @@ function InGameWindow(props: InGameWindowProps) {
   const classes = useStyles(props);
   const { className } = props;
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const toggleVisibility = useCallback(() => {
     setShow((prev) => !prev);
