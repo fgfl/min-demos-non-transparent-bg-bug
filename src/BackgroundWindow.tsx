@@ -77,14 +77,15 @@ function BackgroundWindow(props: BackgroundWindowProps) {
           }
           return minHeight;
         }, DESKTOP_MIN_HEIGHT.default);
-        // const minSizeRes = await desktopWindow.setMinSize(1212, minHeight);
-        // const minSizeRes = await desktopWindow.setMinSize(1280, 650);
-        // console.log('minSizeRes:', JSON.stringify(minSizeRes, null, 2));
+        const minSizeRes = await promisifyOverwolf(overwolf.windows.setMinSize)('desktop', 1212, minHeight);
+        console.log('minSizeRes:', JSON.stringify(minSizeRes, null, 2));
 
       console.log('screen change event:', JSON.stringify(event, null, 2), JSON.stringify(desktop, null, 2), 'minHeight:', minHeight);
       // TODO: need to fix below. size not changing
         if (desktop.logicalBounds.height >= monitorVirtualHeight - taskbarHeight) {
-          promisifyOverwolf(overwolf.windows.changeSize)({
+          promisifyOverwolf((changeSizeParams: overwolf.windows.ChangeWindowSizeParams, callback: overwolf.CallbackFunction<overwolf.Result>) => {
+            overwolf.windows.changeSize(changeSizeParams, callback);
+          })({
             window_id: 'desktop',
             width: desktop.logicalBounds.width,
             height: minHeight,
