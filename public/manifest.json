@@ -69,6 +69,26 @@
         "background_optimization": false,
         "is_background_page": true
       },
+      "desktop": {
+        "file": "index.html",
+        "native_window": true,
+        "in_game_only": false,
+        "transparent": true,
+        "resizable": true,
+        "desktop_only": true,
+        "size": {
+          "width": 1212,
+          "height": 862
+        },
+        "min_size": {
+          "width": 1212,
+          "height": 862
+        },
+        "use_os_windowing": true,
+        "block_top_window_navigation": true,
+        "mute": true,
+        "allow_local_file_access": true
+      },
       "in_game": {
         "file": "index.html",
         "in_game_only": true,

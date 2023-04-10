@@ -4,6 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import BackgroundWindow from './BackgroundWindow';
 import InGameWindow from './InGameWindow';
+import DesktopWindow from './DesktopWindow';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {},
@@ -32,6 +33,8 @@ const CurrentWindow = ({ windowName }: { windowName: string }) => {
       return <BackgroundWindow />
     case 'in_game':
       return <InGameWindow />
+    case 'desktop':
+      return <DesktopWindow />
     default:
       return <Loader />;
   }
@@ -42,9 +45,7 @@ function App() {
 
   useEffect(() => {
     overwolf.windows.getCurrentWindow(result => {
-      window.setTimeout(() =>{
-        setCurrentWindowName(result.window.name);
-      }, 5000);
+      setCurrentWindowName(result.window.name);
     })
   }, []);
 
