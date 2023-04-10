@@ -1,7 +1,8 @@
 import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { useDrag } from './hooks/useDrag';
 
 interface DesktopWindowOwnProps {
   className?: string;
@@ -24,8 +25,19 @@ function DesktopWindow(props: DesktopWindowProps) {
 
   const { width, height, ref } = useResizeDetector();
 
+  useEffect(() => {
+    console.log('width: ', width, 'height: ', height)
+  }, [height, width])
+
+  const { onDragStart, onMouseMove } = useDrag('desktop');
+
   return (
-    <div ref={ref} className={classNames(classes.root, className)}>
+    <div
+    ref={ref}
+    className={classNames(classes.root, className)}
+    onMouseDown={onDragStart}
+    onMouseMove={onMouseMove}
+    >
       <h1>Desktop Window</h1>
       <p>Width: {width}</p>
       <p>Height: {height}</p>
