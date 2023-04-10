@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import BackgroundWindow from './BackgroundWindow';
 import InGameWindow from './InGameWindow';
 import DesktopWindow from './DesktopWindow';
+import classNames from 'classnames';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {},
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '100vh',
     overflow: 'hidden',
   }
-}))
+}), { name: 'App' });
 
 const Loader = () => {
   const classes = useStyles();

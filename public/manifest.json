@@ -72,7 +72,6 @@
       "desktop": {
         "file": "index.html",
         "native_window": true,
-        "in_game_only": false,
         "transparent": true,
         "resizable": true,
         "desktop_only": true,
