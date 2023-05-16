@@ -67,7 +67,7 @@ function InGameWindow(props: InGameWindowProps) {
       return;
     }
     overwolf.streaming.stop(streamId, (result) => {
-
+      setStreamId(undefined)
     })
   }, [streamId]);
 
@@ -80,6 +80,7 @@ function InGameWindow(props: InGameWindowProps) {
         <button onClick={handleStopStream}>
           stop
         </button>
+        <h3>Stream id: {streamId}</h3>
       </div>
     </div>
   );

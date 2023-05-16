@@ -48,4 +48,4 @@ export const testSteamSettings: overwolf.streaming.StreamSettings = {
             capture_mouse_cursor: "both"
         }
     }
-};
+} as overwolf.streaming.StreamSettings;
