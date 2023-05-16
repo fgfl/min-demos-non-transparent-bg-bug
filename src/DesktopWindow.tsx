@@ -1,7 +1,6 @@
 import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
 import { useDrag } from './hooks/useDrag';
 
 interface DesktopWindowOwnProps {
@@ -20,18 +19,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   video: {
     border: '1px solid red',
     background: 'black',
+    height: 200,
   },
 }), { name: 'DesktopWindow' });
 
 function DesktopWindow(props: DesktopWindowProps) {
   const classes = useStyles(props);
   const { className } = props;
-
-  const { width, height, ref } = useResizeDetector();
-
-  useEffect(() => {
-    console.log('width: ', width, 'height: ', height)
-  }, [height, width])
 
   const { onDragStart, onMouseMove } = useDrag('desktop');
 
@@ -65,7 +59,6 @@ function DesktopWindow(props: DesktopWindowProps) {
 
   return (
     <div
-    ref={ref}
     className={classNames(classes.root, className)}
     onMouseDown={onDragStart}
     onMouseMove={onMouseMove}
