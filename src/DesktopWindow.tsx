@@ -87,7 +87,7 @@ function DesktopWindow(props: DesktopWindowProps) {
       <p>src: {src2}</p>
       <p>Error: {vidRef2?.current?.error?.code} {vidRef2?.current?.error?.message}</p>
       <video
-      ref={vidRef}
+      ref={vidRef2}
       src={src2}
       onError={handleError}
       onCanPlay={handleReady}
