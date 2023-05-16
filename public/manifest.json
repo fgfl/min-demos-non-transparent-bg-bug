@@ -86,7 +86,8 @@
         "use_os_windowing": true,
         "block_top_window_navigation": true,
         "mute": true,
-        "allow_local_file_access": true
+        "allow_local_file_access": true,
+        "is_alt_f4_blocked": true
       },
       "in_game": {
         "file": "index.html",

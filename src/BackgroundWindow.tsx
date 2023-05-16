@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { promisifyOverwolf } from './utils/overwolf-wrappers';
 
 interface BackgroundWindowOwnProps {
   className?: string;
@@ -48,6 +49,17 @@ function BackgroundWindow(props: BackgroundWindowProps) {
       overwolf.windows.restore('desktop');
     });
   }, [])
+
+  useEffect(() => {
+    const altF4Listener = async (event: overwolf.windows.AltF4BlockedEvent) => {
+      const closePromise = promisifyOverwolf(overwolf.windows.close);
+      await closePromise('in_game')
+      await closePromise('desktop')
+      await closePromise('background');
+    };
+    overwolf.windows.onAltF4Blocked.addListener(altF4Listener);
+    return () => overwolf.windows.onAltF4Blocked.removeListener(altF4Listener);
+  })
 
   return null;
 }
