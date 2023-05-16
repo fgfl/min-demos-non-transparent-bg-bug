@@ -2,12 +2,12 @@
   "manifest_version": 1,
   "type": "WebApp",
   "meta": {
-    "name": "Non-transparent Background Bug",
+    "name": "DEMUXER_ERROR_COULD_NOT_OPEN bug - OW v0.224",
     "version": "0.0.1",
-    "minimum-overwolf-version": "0.135.0",
+    "minimum-overwolf-version": "0.224",
     "author": "Frederick",
     "icon": "logo192.png",
-    "description": "Non-transparent background bug minimal demo."
+    "description": "Video cannot open file after recording ends."
   },
   "permissions": [
     "Clipboard",
