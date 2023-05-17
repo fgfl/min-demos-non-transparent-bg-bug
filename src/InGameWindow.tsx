@@ -51,14 +51,26 @@ function InGameWindow(props: InGameWindowProps) {
     return () => overwolf.settings.hotkeys.onPressed.removeListener(hotkeyListener);
   }, [toggleVisibility]);
 
-  const [streamId, setStreamId] = useState<number>()
+  const [streamId, setStreamId] = useState<number>();
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const streamStartListener = (event: overwolf.streaming.StreamEvent) => {
+      setStarted(true);
+    };
+
+    overwolf.streaming.onStartStreaming.addListener(streamStartListener);
+    return () => {
+      overwolf.streaming.onStartStreaming.removeListener(streamStartListener);
+    }
+  })
 
   const handleStartStream = useCallback(() => {
     overwolf.streaming.start(
       testSteamSettings,
     (result) => {
       console.log('start stream:', result);
-      setStreamId(result.stream_id)
+      setStreamId(result.stream_id);
     });
   }, []);
 
@@ -67,7 +79,8 @@ function InGameWindow(props: InGameWindowProps) {
       return;
     }
     overwolf.streaming.stop(streamId, (result) => {
-      setStreamId(undefined)
+      setStreamId(undefined);
+      setStarted(false);
     })
   }, [streamId]);
 
@@ -80,7 +93,7 @@ function InGameWindow(props: InGameWindowProps) {
         <button onClick={handleStopStream}>
           stop
         </button>
-        <h3>Stream id: {streamId}</h3>
+        <h3>Stream id: {started ? streamId : null}</h3>
       </div>
     </div>
   );
