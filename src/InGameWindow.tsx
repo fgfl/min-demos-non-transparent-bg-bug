@@ -67,6 +67,9 @@ function InGameWindow(props: InGameWindowProps) {
   })
 
   const handleStartStream = useMemo(() => async () => {
+    if (streamId) {
+      return;
+    }
     const setting = await getStreamSettings();
     console.log('Stream setting:', JSON.stringify(setting, null, 1));
     overwolf.streaming.start(
@@ -76,7 +79,7 @@ function InGameWindow(props: InGameWindowProps) {
         setStreamId(result.stream_id);
       },
     );
-  }, []);
+  }, [streamId]);
 
   const handleStopStream = useCallback(() => {
     if (streamId === undefined) {
