@@ -2,18 +2,12 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDrag } from './hooks/useDrag';
-import { getStreamSettings } from './stream/getStreamSettings';
 
 interface DesktopWindowOwnProps {
   className?: string;
 }
 
 type DesktopWindowProps = DesktopWindowOwnProps;
-
-getStreamSettings()
-  .then((settings) => {
-    console.log('stream setting:', settings);
-  });
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -46,7 +40,7 @@ function DesktopWindow(props: DesktopWindowProps) {
       setSrc(event.file_path);
       window.setTimeout(() => {
         setSrc2(event.file_path);
-      }, 5000);
+      }, 20000);
     };
 
     overwolf.streaming.onStopStreaming.addListener(streamStopListener);
@@ -77,6 +71,7 @@ function DesktopWindow(props: DesktopWindowProps) {
       <video
       ref={vidRef}
       src={src}
+      controls={true}
       onError={handleError}
       onCanPlay={handleReady}
       className={classes.video}
@@ -88,6 +83,7 @@ function DesktopWindow(props: DesktopWindowProps) {
       <video
       ref={vidRef2}
       src={src2}
+      controls={true}
       onError={handleError}
       onCanPlay={handleReady}
       className={classes.video}

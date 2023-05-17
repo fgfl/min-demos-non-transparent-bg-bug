@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { testSteamSettings } from './stream/constant';
+import { getStreamSettings } from './stream/getStreamSettings';
 
 interface InGameWindowOwnProps {
   className?: string;
@@ -65,13 +66,16 @@ function InGameWindow(props: InGameWindowProps) {
     }
   })
 
-  const handleStartStream = useCallback(() => {
+  const handleStartStream = useMemo(() => async () => {
+    const setting = await getStreamSettings();
+    console.log('Stream setting:', JSON.stringify(setting, null, 1));
     overwolf.streaming.start(
-      testSteamSettings,
-    (result) => {
-      console.log('start stream:', result);
-      setStreamId(result.stream_id);
-    });
+      setting,
+      (result) => {
+        console.log('start stream:', result);
+        setStreamId(result.stream_id);
+      },
+    );
   }, []);
 
   const handleStopStream = useCallback(() => {
