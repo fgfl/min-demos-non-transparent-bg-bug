@@ -71,8 +71,16 @@ export async function getStreamSettings(): Promise<overwolf.streaming.StreamSett
         include_full_size_video: true,
         notify_dropped_frames_ratio: 0.5,
         test_drop_frames_interval: 5000,
-        enable_on_demand_split: true,
+        enable_on_demand_split: true, // this setting causes issues with opening file
         keep_game_capture_on_lost_focus: true,
+        override_overwolf_setting: true,
+        game_window_capture: {
+          enable_when_available: true,
+          capture_overwolf_windows: true
+        },
+        indication_position: "None" as overwolf.streaming.enums.IndicationPosition,
+        indication_type: "NoIndication" as overwolf.streaming.enums.IndicationType,
+        max_kbps: 8000,
         fps: 30,
         height: 1080,
         width: 1920,
