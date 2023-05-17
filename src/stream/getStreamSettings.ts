@@ -14,6 +14,7 @@ function getEncoderPriority(name: string) {
       return 0;
   }
 }
+
 async function getVideoEncoder() {
   const encoderData = (await promisifyOverwolf(overwolf.streaming.getStreamEncoders)()
     .then(({ encoders }) => {
@@ -25,6 +26,14 @@ async function getVideoEncoder() {
   return encoderData?.[0];
 }
 
+async function getDefaultAudioDeviceIds() {
+  return await promisifyOverwolf(overwolf.streaming.getAudioDevices)()
+    .then(({ default_recording_device_id, default_playback_device_id }) => ({
+      default_recording_device_id,
+      default_playback_device_id,
+    }))
+};
+
 export async function getStreamSettings(): Promise<overwolf.streaming.StreamSettings> {
   const videoEncoder = await getVideoEncoder()
   const videoEncoderSettings = videoEncoder ? {
@@ -33,15 +42,33 @@ export async function getStreamSettings(): Promise<overwolf.streaming.StreamSett
       preset: videoEncoder.presets[0],
       rateControl: videoEncoder.rateControls[0],
     }
-  } : {
+  } : {};
 
-  };
+  const audioDevices = await getDefaultAudioDeviceIds();
 
   return {
     provider: 'VideoRecorder' as overwolf.streaming.enums.StreamingProvider,
     settings: {
+      audio: {
+        game: {
+          volume: 100,
+          enable: true,
+          device_id: audioDevices.default_playback_device_id,
+          filtered_capture: {
+            enable: true,
+            additional_process_names: [],
+          }
+        },
+        mic: {
+          volume: 100,
+          enable: true,
+          device_id: audioDevices.default_recording_device_id,
+        },
+      },
       video: {
         fps: 30,
+        height: 1080,
+        width: 1920,
         encoder: videoEncoderSettings,
       },
       peripherals: {
