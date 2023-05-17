@@ -2,12 +2,18 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDrag } from './hooks/useDrag';
+import { getStreamSettings } from './stream/getStreamSettings';
 
 interface DesktopWindowOwnProps {
   className?: string;
 }
 
 type DesktopWindowProps = DesktopWindowOwnProps;
+
+getStreamSettings()
+  .then((settings) => {
+    console.log('stream setting:', settings);
+  });
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
