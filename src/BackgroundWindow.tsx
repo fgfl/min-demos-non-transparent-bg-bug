@@ -54,8 +54,17 @@ function BackgroundWindow(props: BackgroundWindowProps) {
     const altF4Listener = async (event: overwolf.windows.AltF4BlockedEvent) => {
       const closePromise = promisifyOverwolf(overwolf.windows.close);
       await closePromise('in_game')
+        .catch((reason) => {
+          console.error('close in_game failed:', reason);
+        });
       await closePromise('desktop')
-      await closePromise('background');
+        .catch((reason) => {
+          console.error('close desktop failed:', reason);
+        });
+      await closePromise('background')
+        .catch((reason) => {
+          console.error('close background failed:', reason);
+        });
     };
     overwolf.windows.onAltF4Blocked.addListener(altF4Listener);
     return () => overwolf.windows.onAltF4Blocked.removeListener(altF4Listener);
